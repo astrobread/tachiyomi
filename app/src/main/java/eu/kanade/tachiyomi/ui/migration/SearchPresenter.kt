@@ -124,11 +124,13 @@ class SearchPresenter(
             }
 
             // Update favorite status
+            manga.favorite = prevManga.favorite
+
             if (replace) {
                 prevManga.favorite = false
                 db.updateMangaFavorite(prevManga).executeAsBlocking()
             }
-            manga.favorite = true
+
             db.updateMangaFavorite(manga).executeAsBlocking()
 
             // Update reading preferences

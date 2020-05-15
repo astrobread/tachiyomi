@@ -25,7 +25,9 @@ import eu.kanade.tachiyomi.data.download.model.Download
 import eu.kanade.tachiyomi.databinding.ChaptersControllerBinding
 import eu.kanade.tachiyomi.ui.base.controller.NucleusController
 import eu.kanade.tachiyomi.ui.main.offsetFabAppbarHeight
+import eu.kanade.tachiyomi.ui.base.controller.withFadeTransaction
 import eu.kanade.tachiyomi.ui.manga.MangaController
+import eu.kanade.tachiyomi.ui.migration.SearchController
 import eu.kanade.tachiyomi.ui.reader.ReaderActivity
 import eu.kanade.tachiyomi.util.system.getResourceColor
 import eu.kanade.tachiyomi.util.system.toast
@@ -223,6 +225,8 @@ class ChaptersController :
             R.id.download_next, R.id.download_next_5, R.id.download_next_10,
             R.id.download_custom, R.id.download_unread, R.id.download_all
             -> downloadChapters(item.itemId)
+
+            R.id.switch_source -> switchSource()
 
             R.id.action_filter_unread -> {
                 item.isChecked = !item.isChecked
@@ -547,6 +551,11 @@ class ChaptersController :
         .distinctBy { it.name }
         .sortedByDescending { it.source_order }
 
+    private fun switchSource() {
+        val controller = SearchController(presenter.manga, true)
+        controller.targetController = this
+        router.pushController(controller.withFadeTransaction())
+    }
     private fun downloadChapters(choice: Int) {
         val chaptersToDownload = when (choice) {
             R.id.download_next -> getUnreadChaptersSorted().take(1)

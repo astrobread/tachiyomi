@@ -8,14 +8,17 @@ import eu.kanade.tachiyomi.R
 import eu.kanade.tachiyomi.data.database.models.Manga
 import eu.kanade.tachiyomi.data.preference.PreferencesHelper
 import eu.kanade.tachiyomi.ui.base.controller.DialogController
+import eu.kanade.tachiyomi.ui.base.controller.withFadeTransaction
 import eu.kanade.tachiyomi.ui.browse.source.globalsearch.GlobalSearchController
 import eu.kanade.tachiyomi.ui.browse.source.globalsearch.GlobalSearchPresenter
+import eu.kanade.tachiyomi.ui.manga.MangaController
 import eu.kanade.tachiyomi.util.view.gone
 import eu.kanade.tachiyomi.util.view.visible
 import uy.kohesive.injekt.injectLazy
 
 class SearchController(
-    private var manga: Manga? = null
+    private var manga: Manga? = null,
+    private var isSwitch: Boolean = false
 ) : GlobalSearchController(manga?.title) {
 
     private var newManga: Manga? = null
@@ -68,6 +71,9 @@ class SearchController(
         } else {
             binding.progress.gone()
             router.popController(this)
+            if (isSwitch) {
+                router.pushController(MangaController(newManga).withFadeTransaction())
+            }
         }
     }
 

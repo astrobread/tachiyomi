@@ -92,4 +92,9 @@
                 android:title="@string/download_all" />
         </menu>
     </item>
+    <item
+        android:id="@+id/switch_source"
+        app:showAsAction="never"
+        android:title="Switch"
+        ></item>
 </menu>
