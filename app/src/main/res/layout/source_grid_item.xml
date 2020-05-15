@@ -93,7 +93,25 @@
                 tools:visibility="visible" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
+        <TextView
+            android:id="@+id/source_name"
+            style="@style/TextAppearance.Regular.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:ellipsize="end"
+            android:fontFamily="@font/ptsans_narrow_bold"
+            android:lineSpacingExtra="-4dp"
+            android:maxLines="2"
+            android:padding="8dp"
+            android:shadowColor="@color/textColorPrimaryLight"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="4"
+            android:textColor="@color/md_white_1000"
+            android:visibility="gone"
+            tools:visibility="visible"
+            tools:text="Source name" />
         <TextView
             android:id="@+id/title"
             style="@style/TextAppearance.Regular.Body1"
@@ -111,6 +129,7 @@
             android:shadowRadius="4"
             android:textColor="@color/md_white_1000"
             tools:text="Sample name" />
+
 
         <ProgressBar
             android:id="@+id/progress"

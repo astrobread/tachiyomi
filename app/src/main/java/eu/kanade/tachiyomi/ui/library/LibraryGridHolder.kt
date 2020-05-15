@@ -6,12 +6,12 @@ import eu.davidea.flexibleadapter.FlexibleAdapter
 import eu.kanade.tachiyomi.data.glide.GlideApp
 import eu.kanade.tachiyomi.data.glide.toMangaThumbnail
 import eu.kanade.tachiyomi.source.LocalSource
+import eu.kanade.tachiyomi.source.SourceManager
+import eu.kanade.tachiyomi.util.view.visible
 import eu.kanade.tachiyomi.util.view.visibleIf
-import kotlinx.android.synthetic.main.source_grid_item.download_text
-import kotlinx.android.synthetic.main.source_grid_item.local_text
-import kotlinx.android.synthetic.main.source_grid_item.thumbnail
-import kotlinx.android.synthetic.main.source_grid_item.title
-import kotlinx.android.synthetic.main.source_grid_item.unread_text
+import kotlinx.android.synthetic.main.source_grid_item.*
+import uy.kohesive.injekt.Injekt
+import uy.kohesive.injekt.api.get
 
 /**
  * Class used to hold the displayed data of a manga in the library, like the cover or the title.
@@ -36,6 +36,12 @@ class LibraryGridHolder(
     override fun onSetValues(item: LibraryItem) {
         // Update the title of the manga.
         title.text = item.manga.title
+
+        // Update the source name
+        with(source_name) {
+            visible()
+            text = Injekt.get<SourceManager>().getOrStub(item.manga.source).name
+        }
 
         // Update the unread count and its visibility.
         with(unread_text) {
